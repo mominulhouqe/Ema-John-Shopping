@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../Providers/Authprovider';
 
 const Singup = () => {
 
     const [error, setError] = useState('');
 
-
+    const {createUser} = useContext(UserContext);
 
     const handleSingUp = event =>{
         event.preventDefault();
         const form = event.target;
-        const email = form.event.target;
+        const email = form.email.value;
         const password = form.password.value;
         const confirm = form.confirm.value;
+        setError('');
 
         if(password !== confirm){
             setError('Your Password did not match')
@@ -21,6 +23,15 @@ const Singup = () => {
         else if(password.length > 6){
             setError('You have must given 6 digit')
         }
+        createUser(email, password)
+        .then(result =>{
+            const loggedUser = result.user;
+            console.log(loggedUser);
+        })
+        .catch(error =>{
+            console.log(error);
+            setError(error.message)
+        })
     }
 
     return (
