@@ -13,6 +13,7 @@ import Inventory from './components/Inventory/Inventory';
 import Login from './components/Login/Login';
 import cartProductsLoader from './loaders/cartProductsLoader';
 import Checkout from './components/Checkout/Checkout';
+import SingUP from './components/SingUp/SingUP';
 
 const router = createBrowserRouter([
   {
@@ -33,13 +34,18 @@ const router = createBrowserRouter([
         element: <Inventory></Inventory>
       },
       {
+        path: 'singup',
+        element: <SingUP></SingUP>
+      },
+      {
         path:'checkout',
         element: <Checkout></Checkout>
       },
       {
         path: 'login',
         element: <Login></Login>
-      }
+      },
+    
     ]
   }
 ])
