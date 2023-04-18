@@ -6,9 +6,9 @@ const Singup = () => {
 
     const [error, setError] = useState('');
 
-    const {createUser} = useContext(UserContext);
+    const { createUser } = useContext(UserContext);
 
-    const handleSingUp = event =>{
+    const handleSingUp = event => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
@@ -16,22 +16,22 @@ const Singup = () => {
         const confirm = form.confirm.value;
         setError('');
 
-        if(password !== confirm){
+        if (password !== confirm) {
             setError('Your Password did not match')
             return;
         }
-        else if(password.length > 6){
+        else if (password.length > 6) {
             setError('You have must given 6 digit')
         }
         createUser(email, password)
-        .then(result =>{
-            const loggedUser = result.user;
-            console.log(loggedUser);
-        })
-        .catch(error =>{
-            console.log(error);
-            setError(error.message)
-        })
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+            })
+            .catch(error => {
+                console.log(error);
+                setError(error.message)
+            })
     }
 
     return (
@@ -40,26 +40,26 @@ const Singup = () => {
                 <h3 className='text-center mb-5'>Please Register !!!</h3>
 
                 <div className="mb-3">
-                    <label for="exampleInputEmail1" className="form-label">Email address</label>
+                    <label className="form-label">Email address</label>
                     <input type="email" name='email' required className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                        
+
                 </div>
                 <div className="mb-3">
-                    <label for="exampleInputPassword1" className="form-label">Password</label>
+                    <label className="form-label">Password</label>
                     <input type="password" className="form-control" name='password' required id="exampleInputPassword1" />
                 </div>
                 <div className="mb-3">
-                    <label for="exampleInputPassword1" className="form-label">Confirm Password</label>
-                    <input type="password" name='confirm' required className="form-control" id="exampleInputPassword1" />
+                    <label className="form-label">Confirm Password</label>
+                    <input type="password" name='confirm' required className="form-control" id="exampleInputPassword2" />
                 </div>
-                
+
                 <button type="submit" className="btn btn-primary mb-4">Sign Up</button>
                 <p>Already have an account ? <Link to="/login" className='text-warning'>login</Link> </p>
                 <p className='text-warning'>{error}</p>
                 <hr />
-               <div className='d-flex align-item-center justify-content-center bg-light'>
-               <button className='btn btn-outline-primary'>Continue With Google</button>
-               </div>
+                <div className='d-flex align-item-center justify-content-center bg-light'>
+                    <button className='btn btn-outline-primary'>Continue With Google</button>
+                </div>
             </form>
         </>
     );
