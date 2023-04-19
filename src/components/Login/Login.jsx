@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../Providers/Authprovider';
 
 const Login = () => {
-
+    const [show, setShow] = useState(false)
     const { user, loginUser } = useContext(UserContext);
     const navigate = useNavigate();
     const location = useLocation();
@@ -54,7 +54,12 @@ const Login = () => {
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Password</label>
-                    <input type="password" className="form-control" name='password' required id="exampleInputPassword1" />
+                    <input type={show ? "text": "password"} className="form-control" name='password' required id="exampleInputPassword1" />
+                    <button className='btn btn-primary my-2' onClick={()=>setShow(!show)}><small>
+                        {
+                            show ? <sapn>Hide Password</sapn> : <span>Show Password</span>
+                        }
+                        </small> </button>
                 </div>
 
                 <div className="mb-4 form-check">
