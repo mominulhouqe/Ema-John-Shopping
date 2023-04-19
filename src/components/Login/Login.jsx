@@ -1,11 +1,14 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../Providers/Authprovider';
 
 const Login = () => {
 
     const { user, loginUser } = useContext(UserContext);
-    const [success, setSuccess] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
+    
+    const from = location.state?.from?.pathname || '/';
 
     const [error, setError] = useState(null);
 
@@ -25,7 +28,9 @@ const Login = () => {
         loginUser(email, password)
             .then(result => {
                 const loggedUser = result.user;
+                console.log(loggedUser);
                 form.reset();
+                navigate(from, {replace: true})
             })
             .catch(error => {
                 setError(error.message);
@@ -39,8 +44,8 @@ const Login = () => {
 
     return (
         <div>
+            <h3 className='text-center mb-5'>Please Login !!!</h3>
             <form onSubmit={handleLogin} className='w-50 mx-lg-auto mt-5 bg-light p-4 border rounded'>
-                <h3 className='text-center mb-5'>Please Login !!!</h3>
 
                 <div className="mb-3">
                     <label className="form-label">Email address</label>
@@ -57,8 +62,8 @@ const Login = () => {
                     <label className="form-check-label" >Remember me</label>
                 </div>
                 <button type="submit" className="btn btn-primary mb-3">Login</button>
-                <p className='text-danger'>{error}</p>
-                <p className='text-danger'>{success}</p>
+                <p className='text-warning'>{error}</p>
+               
 
                 <p>New to Ema-john? <Link to="/singup" className='text-warning'>Create an account </Link> </p>
                 <hr />
