@@ -50,29 +50,29 @@ const Singup = () => {
             });
     }
 
-    const handleGooglePopup = () => {
-        signInGoogle()
-            .then(result => {
-                const loggedUser = result.user;
-                Swal.fire(
-                    'You Login Successfully!',
-                    'success'
-                )
-                setUser(loggedUser);
-                navigate('/');
-            })
-            .catch((error) => {
-                let errorMessage = 'Registration failed. Please try again.';
-                if (error.message) {
-                    errorMessage = error.message;
-                }
-                Swal.fire('Error!', errorMessage, 'error');
-            });
-    }
+    // const handleGooglePopup = () => {
+    //     signInGoogle()
+    //         .then(result => {
+    //             const loggedUser = result.user;
+    //             Swal.fire(
+    //                 'You Login Successfully!',
+    //                 'success'
+    //             )
+    //             setUser(loggedUser);
+    //             navigate('/');
+    //         })
+    //         .catch((error) => {
+    //             let errorMessage = 'Registration failed. Please try again.';
+    //             if (error.message) {
+    //                 errorMessage = error.message;
+    //             }
+    //             Swal.fire('Error!', errorMessage, 'error');
+    //         });
+    // }
     return (
         <>
             <div >
-                <div className="flex justify-center items-center my-20 min-h-screen bg-gray-100">
+                <div className="flex justify-center items-center my-5">
                     <div className="w-full max-w-sm bg-white shadow-md rounded-2xl px-12 py-10">
                         <h2 className="text-5xl font-bold mb-6  text-center ">Please Register !!!</h2>
                         <form onSubmit={handleRegister}>
@@ -134,14 +134,7 @@ const Singup = () => {
                                     Sign In
                                 </button>
 
-                                <button
-                                    type="button"
-                                    onClick={handleGooglePopup}
-                                    className="flex gap-2 items-center btn  hover:bg-red-600  btn-outline  font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                >
-                                    {/* <FaGoogle></FaGoogle> */}
-                                    Sign In with Google
-                                </button>
+                             
                                 <p className=''> Already have an account?Please <Link className='text-yellow-500 underline font-semibold' to='/login'>Login</Link></p>
                             </div>
                         </form>

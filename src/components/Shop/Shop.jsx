@@ -62,7 +62,7 @@ const Shop = () => {
     }
 
     return (
-        <div className='shop-container'>
+        <div className='shop-container container mx-5'>
             <div className="products-container">
                 {
                     products.map(product => <Product
@@ -72,12 +72,12 @@ const Shop = () => {
                     ></Product>)
                 }
             </div>
-            <div className="cart-container">
+            <div className="cart-container my-5  ">
                 <Cart
                     cart={cart}
                     handleClearCart={handleClearCart}
                 >
-                    <Link className='proceed-link' to="/orders">
+                    <Link className='proceed-link p-2' to="/orders">
                         <button className='btn-proceed'>Review Order</button>
                     </Link>
                 </Cart>

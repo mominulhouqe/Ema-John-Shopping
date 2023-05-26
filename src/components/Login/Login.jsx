@@ -41,35 +41,35 @@ const Login = () => {
             });
 
     }
-    const handleGooglePopup = () => {
-        signInGoogle()
-            .then(result => {
-                const loggedUser = result.user;
-                Swal.fire(
+    // const handleGooglePopup = () => {
+    //     signInGoogle()
+    //         .then(result => {
+    //             const loggedUser = result.user;
+    //             Swal.fire(
 
-                    'You Login Successfully!',
-                    'success'
-                )
-                setUser(loggedUser);
-                navigate(from, { replace: true })
+    //                 'You Login Successfully!',
+    //                 'success'
+    //             )
+    //             setUser(loggedUser);
+    //             navigate(from, { replace: true })
 
-            })
-            .catch((error) => {
-                let errorMessage = 'Login failed. Please try again.';
-                if (error.message) {
-                    errorMessage = error.message;
-                }
-                Swal.fire('Error!', errorMessage, 'error');
-            });
-    }
+    //         })
+    //         .catch((error) => {
+    //             let errorMessage = 'Login failed. Please try again.';
+    //             if (error.message) {
+    //                 errorMessage = error.message;
+    //             }
+    //             Swal.fire('Error!', errorMessage, 'error');
+    //         });
+    // }
 
 
 
     return (
         <div>
-            <div className="flex justify-center my-12 items-center min-h-screen ">
+            <div className="flex justify-center  items-center my-5 ">
                 <div className="w-full max-w-sm bg-white shadow-md border rounded-2xl px-16 py-16">
-                    <h2 className="text-4xl font-bold mb-6  text-center ">Login</h2>
+                    <h2 className="text-4xl font-bold mb-6  text-center ">Please Login</h2>
                     <form onSubmit={handleLogin}>
                         <div className="mb-4">
                             <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
@@ -105,14 +105,7 @@ const Login = () => {
                                 Sign In
                             </button>
 
-                            <button
-                                type="button"
-                                onClick={handleGooglePopup}
-                                className="flex gap-2 items-center btn  hover:bg-red-600  btn-outline  font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            >
-                                {/* <FaGoogle></FaGoogle> */}
-                                Sign In with Google
-                            </button>
+                            
                             <p className=''>Are you new here? Please  <Link className='text-yellow-500 underline font-semibold' to='/register'>Register</Link></p>
                         </div>
                     </form>

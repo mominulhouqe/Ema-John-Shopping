@@ -29,10 +29,9 @@ const Header = () => {
                 <Link to="/orders">Orders</Link>
                 <Link to="/inventory">Inventory</Link>
                 <Link to="/login">Login</Link>
-                <Link to="/singup">Sign Up </Link>
                 
                     {
-                        user && <small className='text-white mx-5'>{user.email} <button onClick={handleLogOut} className="btn btn-success mx-2">Sing Out</button>  </small>  
+                        user && <small className='text-white mx-5'>{user.email} <button onClick={handleLogOut} className="btn btn-success mx-2">Sign Out</button>  </small>  
                       }
                 
 
