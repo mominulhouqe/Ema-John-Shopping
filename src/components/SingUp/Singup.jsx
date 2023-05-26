@@ -74,10 +74,10 @@ const Singup = () => {
             <div >
                 <div className="flex justify-center items-center my-20 min-h-screen bg-gray-100">
                     <div className="w-full max-w-sm bg-white shadow-md rounded-2xl px-12 py-10">
-                        <h2 className="text-4xl font-bold mb-6  text-center ">Please Register !!!</h2>
+                        <h2 className="text-5xl font-bold mb-6  text-center ">Please Register !!!</h2>
                         <form onSubmit={handleRegister}>
                             <div className="mb-4">
-                                <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">
+                                <label htmlFor="name" className="block  text-gray-700 font-semibold mb-2">
                                     Name
                                 </label>
                                 <input
@@ -102,7 +102,7 @@ const Singup = () => {
 
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
+                                <label htmlFor="email" className="block text-4xl text-gray-700 font-semibold mb-2">
                                     Email Address
                                 </label>
                                 <input
