@@ -1,16 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../Providers/Authprovider';
-
+import Swal from 'sweetalert2'
 const Login = () => {
-    const [show, setShow] = useState(false)
-    const { user, loginUser } = useContext(UserContext);
-    const navigate = useNavigate();
-    const location = useLocation();
-    
-    const from = location.state?.from?.pathname || '/';
+    const { signIn, signInGoogle } = useContext(UserContext)
 
-    const [error, setError] = useState(null);
+    const [user, setUser] = useState(null);
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/'
+    const navigate = useNavigate();
 
 
     const handleLogin = (event) => {
@@ -18,64 +16,109 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
-        setError('')
 
-        if (password.length > 6) {
-            setError('You have must 6 digit of password')
+        if (!/(?=.*[a-z])/.test(password)) {
+            swal("Oops", "try to at least one lowercase!", "error")
+            return;
         }
+        signIn(email, password)
+            .then(result => {
+                const loggedUser = result.user
+                Swal.fire(
 
-        loginUser(email, password)
+                    'You Login Successfully!',
+                    'success'
+                )
+                form.reset('');
+                navigate(from, { replace: true })
+            })
+            .catch((error) => {
+                let errorMessage = 'Login failed. Please try again.';
+                if (error.message) {
+                    errorMessage = error.message;
+                }
+                Swal.fire('Error!', errorMessage, 'error');
+            });
+
+    }
+    const handleGooglePopup = () => {
+        signInGoogle()
             .then(result => {
                 const loggedUser = result.user;
-                console.log(loggedUser);
-                form.reset();
-                navigate(from, {replace: true})
-            })
-            .catch(error => {
-                setError(error.message);
+                Swal.fire(
+
+                    'You Login Successfully!',
+                    'success'
+                )
+                setUser(loggedUser);
+                navigate(from, { replace: true })
 
             })
-
-
+            .catch((error) => {
+                let errorMessage = 'Login failed. Please try again.';
+                if (error.message) {
+                    errorMessage = error.message;
+                }
+                Swal.fire('Error!', errorMessage, 'error');
+            });
     }
 
 
 
     return (
         <div>
-            <h3 className='text-center mb-5'>Please Login !!!</h3>
-            <form onSubmit={handleLogin} className='w-50 mx-lg-auto mt-5 bg-light p-4 border rounded'>
+            <div className="flex justify-center my-12 items-center min-h-screen ">
+                <div className="w-full max-w-sm bg-white shadow-md border rounded-2xl px-16 py-16">
+                    <h2 className="text-4xl font-bold mb-6  text-center ">Login</h2>
+                    <form onSubmit={handleLogin}>
+                        <div className="mb-4">
+                            <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
+                                Email Address
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                name='email'
+                                required
+                                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+                                placeholder="Enter your email address"
+                            />
+                        </div>
+                        <div className="mb-6">
+                            <label htmlFor="password" className="block text-gray-700 font-semibold mb-2">
+                                Password
+                            </label>
+                            <input
+                                type="password"
+                                id="password"
+                                name='password'
+                                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+                                placeholder="Enter your password"
+                            />
+                        </div>
+                        <div className="flex items-center space-x-2 flex-wrap space-y-5 sm:justify-center   justify-between">
 
-                <div className="mb-3">
-                    <label className="form-label">Email address</label>
-                    <input type="email" name='email' required className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                            <button
+                                type="submit"
+                                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            >
+                                Sign In
+                            </button>
 
+                            <button
+                                type="button"
+                                onClick={handleGooglePopup}
+                                className="flex gap-2 items-center btn  hover:bg-red-600  btn-outline  font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            >
+                                {/* <FaGoogle></FaGoogle> */}
+                                Sign In with Google
+                            </button>
+                            <p className=''>Are you new here? Please  <Link className='text-yellow-500 underline font-semibold' to='/register'>Register</Link></p>
+                        </div>
+                    </form>
                 </div>
-                <div className="mb-3">
-                    <label className="form-label">Password</label>
-                    <input type={show ? "text": "password"} className="form-control" name='password' required id="exampleInputPassword1" />
-                    <button className='btn btn-primary my-2' onClick={()=>setShow(!show)}><small>
-                        {
-                            show ? <sapn>Hide Password</sapn> : <span>Show Password</span>
-                        }
-                        </small> </button>
-                </div>
+            </div>
 
-                <div className="mb-4 form-check">
-                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                    <label className="form-check-label" >Remember me</label>
-                </div>
-                <button type="submit" className="btn btn-primary mb-3">Login</button>
-                <p className='text-warning'>{error}</p>
-               
-
-                <p>New to Ema-john? <Link to="/singup" className='text-warning'>Create an account </Link> </p>
-                <hr />
-                <div className='d-flex align-item-center justify-content-center bg-light'>
-                    <button className='btn btn-outline-primary'>Continue With Google</button>
-                </div>
-            </form>
         </div>
     );
 };
