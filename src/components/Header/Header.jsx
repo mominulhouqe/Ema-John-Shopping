@@ -6,7 +6,7 @@ import { UserContext } from '../Providers/Authprovider';
 
 
 const Header = () => {
-    const { user, logOut, setUser } = useContext(UserContext);
+    const { user, logOut } = useContext(UserContext);
     
   
 
@@ -14,7 +14,7 @@ const Header = () => {
         
         logOut()
             .then(result => {
-                setUser(null); // Update user state to null
+                console.log(result);
             })
             .catch(error => {
                 console.log(error);
